@@ -13,8 +13,18 @@ Output: False
 """
 
 def has_duplicates(product_ids):
-    # Your implementation here
-    pass
+    seen = set()
+
+    for product_id in product_ids:
+        if product_id in seen:
+            return True
+        seen.add(product_id)
+
+    return False
+
+# I used a set because it allows fast membership checks and keeps track of values
+# that have already been seen. The function checks each product ID once, so the
+# average runtime is O(n).
 
 
 """
@@ -32,14 +42,20 @@ task_queue.remove_oldest_task() → "Email follow-up"
 
 class TaskQueue:
     def __init__(self):
-        # Your initialization here
-        pass
+        self.tasks = []
 
     def add_task(self, task):
-        pass
+        self.tasks.append(task)
 
     def remove_oldest_task(self):
-        pass
+        if self.tasks:
+            return self.tasks.pop(0)
+        return None
+
+# I used a queue because tasks need to be handled in the order they were added,
+# following first-in, first-out behavior. Tasks are added to the end and removed
+# from the front, so adding is O(1) while removing the oldest task is O(n) with
+# a Python list because the remaining items must shift.
 
 
 """
@@ -57,10 +73,14 @@ tracker.get_unique_count() → 2
 
 class UniqueTracker:
     def __init__(self):
-        pass
+        self.values = set()
 
     def add(self, value):
-        pass
+        self.values.add(value)
 
     def get_unique_count(self):
-        pass
+        return len(self.values)
+
+# I used a set because it automatically keeps only unique values and allows
+# values to be added efficiently. Adding a value is O(1) on average, and getting
+# the unique count is O(1) because the set size is returned directly.
